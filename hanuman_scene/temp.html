@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ujjwal Vinnakota - Professional Cricketer</title>
+  <!-- ✅ Load Mammoth first -->
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; color: #111; }
+    h3 { color: #1e3c72; }
+    .playing-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    img {
+      width: 100%;
+      border-radius: 4px;
+    }
+    button.translateBtn {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: none;
+      background: #1e3c72;
+      color: #fff;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 8px;
+    }
+    .docx-content {
+      background: #f8f8f8;
+      padding: 10px;
+      border-radius: 6px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+  </style>
+   <style>
+        /* -------------------------
+           Base reset & typography
+           ------------------------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0; }
+
+        /* -------------------------
+           Header + Profile Photo
+           ------------------------- */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        #profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid rgba(255,255,255,0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            background: #f0f0f0;
+        }
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+        .location {
+            font-size: 0.98rem;
+            opacity: 0.9;
+        }
+
+        /* -------------------------
+           Stats grid
+           ------------------------- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        .stat-card {
+            background: white;
+            padding: 26px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            border-left: 4px solid #1e3c72;
+        }
+        .stat-card:hover { transform: translateY(-6px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .stat-number { font-size: 2.2rem; font-weight: 700; color: #1e3c72; margin-bottom: 6px; }
+        .stat-label { font-size: 0.98rem; color: #6c757d; font-weight: 600; }
+
+        /* -------------------------
+           Generic section styles
+           ------------------------- */
+        .section { padding: 44px 40px; background: white; margin: 0; }
+        .section:nth-child(even) { background: #f8f9fa; }
+        h2 {
+            font-size: 1.9rem;
+            margin-bottom: 22px;
+            color: #1e3c72;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e3c72;
+            display: inline-block;
+        }
+        h3 { font-size: 1.15rem; margin-bottom: 10px; color: #2c3e50; font-weight: 600; }
+        .content-box {
+            background: white;
+            padding: 20px;
+            margin: 18px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #2a5298;
+        }
+
+        /* -------------------------
+           Timeline (left line)
+           ------------------------- */
+        .timeline { position: relative; padding: 12px 0 12px 30px; margin-left: 10px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #1e3c72;
+            border-radius: 2px;
+        }
+        .timeline-item { position: relative; padding-left: 40px; margin-bottom: 26px; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            background: #1e3c72;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #1e3c72;
+        }
+
+        /* -------------------------
+           Achievements grid
+           ------------------------- */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .achievement-card {
+            background: white;
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            border-top: 3px solid #1e3c72;
+        }
+        .achievement-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .achievement-year { font-size: 1rem; font-weight: 700; color: #1e3c72; margin-bottom: 8px; }
+        .achievement-title { font-size: 1.02rem; color: #2c3e50; margin-bottom: 8px; font-weight: 700; }
+        .achievement-desc { color: #6c757d; line-height: 1.6; font-size: 0.98rem; }
+
+        /* -------------------------
+           Team badges
+           ------------------------- */
+        .team-badges { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
+        .badge {
+            background: #1e3c72; color: white; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.92rem;
+            transition: all 0.2s ease;
+        }
+        .badge:hover { background: #2a5298; transform: scale(1.03); }
+
+        /* -------------------------
+           Stats highlight box
+           ------------------------- */
+        .stats-highlight {
+            background: linear-gradient(135deg,#1e3c72 0%,#2a5298 100%);
+            color: white; padding: 26px; border-radius: 8px; margin: 18px 0; text-align: center;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+            gap: 18px; margin-top: 18px;
+        }
+        .stats-item-number { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+        .stats-item-label { font-size: 0.95rem; opacity: 0.95; }
+
+        /* -------------------------
+           Quote + Footer
+           ------------------------- */
+        .quote-section {
+            background: #f8f9fa; padding: 30px; text-align: center; font-style: italic; font-size: 1rem; color: #2c3e50;
+            border-left: 5px solid #1e3c72; margin: 24px 0;
+        }
+        .quote-author { margin-top: 12px; font-style: normal; font-weight: 700; color: #1e3c72; }
+
+        footer {
+            background: #2c3e50; color: white; text-align: center; padding: 28px 18px; margin-top: 18px;
+        }
+        footer p { margin: 8px 0; }
+
+        /* -------------------------
+           Playing images (hero + gallery)
+           ------------------------- */
+        .playing-hero {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            margin: 16px 0;
+            display: block;
+        }
+        .playing-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .playing-gallery img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        /* -------------------------
+           Responsive tweaks
+           ------------------------- */
+        @media (max-width: 900px) {
+            h1 { font-size: 2rem; }
+            #profile-photo { width: 120px; height: 120px; }
+        }
+        @media (max-width: 600px) {
+            .section { padding: 20px; }
+            .stats-grid { padding: 18px; }
+            .playing-hero { max-height: 240px; }
+            .playing-gallery img { height: 120px; }
+        }
+
+        /* small typography niceties */
+        p { margin: 10px 0; font-size: 0.98rem; }
+        strong { color: #1e3c72; font-weight: 700; }
+        ul { margin: 12px 0 12px 20px; line-height: 1.7; }
+        ul li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with rounded profile photo -->
+        <header>
+            <div class="header-grid">
+                <!-- Put profile.jpg in images/ folder -->
+                <img id="profile-photo" src="data:image/webp;base64,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" alt="Ujjwal Vinnakota - Profile Photo">
+                <div style="text-align:center;">
+                    <h1>UJJWAL VINNAKOTA</h1>
+                    <p class="subtitle">Professional All-Rounder Cricketer</p>
+                    <p class="location">Dallas, Texas, USA | Eluru, Andhra Pradesh, India</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Quick stats -->
+        <div class="stats-grid" aria-label="Career statistics">
+            <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Years of Professional Cricket</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3,534+</div>
+                <div class="stat-label">Total Career Runs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">155+</div>
+                <div class="stat-label">Total Career Wickets</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">140+</div>
+                <div class="stat-label">Professional Matches</div>
+            </div>
+        </div>
+
+        <!-- Early life -->
+        <section class="section" aria-labelledby="early-life-heading">
+            <h2 id="early-life-heading">Early Life & Cricket Beginnings</h2>
+            <div class="content-box">
+                <h3>The Foundation Years in Eluru</h3>
+                <p>Born in Warangal, Telangana, Ujjwal Vinnakota's family settled in Eluru, West Godavari district, Andhra Pradesh, where his cricket journey began at age six in the most humble of beginnings—playing cricket with vegetables at his grandparents' home, using whatever could be found as makeshift bats and balls.</p>
+                <p style="margin-top: 12px;">Recognizing his son's enthusiasm, <strong>V. Siva Prasada Rao</strong>, himself a passionate cricket fan, enrolled Ujjwal in a summer cricket camp. Within just two months of training, Ujjwal was selected to represent his district—the very first step in what would become a distinguished 15-year cricket career.</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Family Support System</h3>
+                <p><strong>Parents:</strong> V. Siva Prasada Rao and V. Neeraja have been the unwavering foundation of Ujjwal's success, instilling values of discipline, humility, and perseverance.</p>
+                <p style="margin-top: 12px;"><strong>Brother:</strong> Jayanth Sai played an instrumental role during Ujjwal's formative years, constantly assisting during practice sessions and motivating him through his early development.</p>
+            </div>
+
+            <!-- Hero playing image after early life -->
+            <img class="playing-hero" src="./ujjwal_batting.jpg" alt="Action shot: Ujjwal Vinnakota batting">
+        </section>
+
+        <!-- India career timeline -->
+        <section class="section" aria-labelledby="india-career-heading">
+            <h2 id="india-career-heading">India Cricket Career - BCCI Pathway</h2>
+            <div class="timeline" role="list">
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>District & Zonal Level (2010-2011)</h3>
+                        <p><strong>Under-14 Zonal Selections</strong></p>
+                        <p>Selected from tens of thousands of aspirants — this marked entry into organized competitive cricket at the state level.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>BCCI Framework Entry (2012-2013)</h3>
+                        <p><strong>Andhra Pradesh Under-16 Representative</strong></p>
+                        <p>Achieved entry into the BCCI framework — access to certified coaching staff and professional-grade training environments while competing in national tournaments.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>Elite National Youth Cricket (2015-2017)</h3>
+                        <p><strong>Andhra Pradesh Under-19 — Cooch Behar Trophy & Vinoo Mankad Trophy</strong></p>
+                        <p>Competition at this level represents the top 1–2% of youth players nationally and is a common launchpad to first-class cricket.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>Gateway to First-Class Cricket (2018-2019)</h3>
+                        <p><strong>CK Nayudu Trophy (Under-23)</strong></p>
+                        <p>Selected to represent Andhra Pradesh; notable performance: dismissed Devdutt Padikkal in a crucial match vs Karnataka.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>Elite Invitational Tournament (2018-2019)</h3>
+                        <p><strong>ACA Sir Vizzy Trophy</strong></p>
+                        <p>Represented Andhra Pradesh in a high-profile invitational, sharing the field with future internationals and elite prospects.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>University Cricket Leadership (2015-2019)</h3>
+                        <p><strong>JNTU Kakinada — Captain (Two Years)</strong></p>
+                        <p>Led the university squad to playoff stages of the All-India Inter-University Championship.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" role="listitem">
+                    <div class="content-box">
+                        <h3>Six-Year Academy Excellence</h3>
+                        <p><strong>Andhra Cricket Academy</strong></p>
+                        <p>Selected consecutively for six years — a rare sign of long-term performance and discipline under state-level evaluation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote -->
+        <div class="quote-section">
+            From early beginnings with makeshift equipment to competing alongside future Indian internationals — every step through India's elite BCCI system built the foundation for professional excellence.
+            <div class="quote-author">— 15 Years of Cricket Development</div>
+        </div>
+
+        <!-- United States career + hero image -->
+        <section class="section" aria-labelledby="usa-career-heading">
+            <h2 id="usa-career-heading">United States Cricket Career (2022–Present)</h2>
+            <div class="content-box">
+                <h3>Professional Transition to American Cricket</h3>
+                <p>In 2022, Ujjwal relocated to Dallas, Texas. He connected with local clubs and began competing across NTCA leagues and national-level tournaments. In his first tournament in Florida he scored a century, which led to a selection by the Fort Lauderdale Lions in Minor League Cricket (MiLC).</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Rise Through U.S. Competitive Cricket</h3>
+                <p>Signed as a retained marquee player for the St. Louis Americans and recognized among the most consistent performers across U.S. franchise cricket.</p>
+            </div>
+
+            <!-- Playing hero image for USA career -->
+            <img class="playing-hero" src="./ujjwal_bowling_1.jpg" alt="Ujjwal playing in USA league">
+
+            <h3 style="margin-top:16px; color:#1e3c72;">Teams Represented in USA</h3>
+            <div class="team-badges" aria-hidden="false">
+                <div class="badge">St. Louis Americans (MiLC)</div>
+                <div class="badge">Fort Lauderdale Lions (MiLC)</div>
+                <div class="badge">Chicago Cricket Club (NCL)</div>
+                <div class="badge">Elite Lions (NTCA)</div>
+                <div class="badge">Plano Cricket Club</div>
+                <div class="badge">Dallas Mustangs</div>
+                <div class="badge">California Golden Eagles</div>
+                <div class="badge">Riders CC</div>
+            </div>
+
+            <h3 style="margin-top:18px; color:#1e3c72;">Major Tournaments & Competitions</h3>
+            <div class="team-badges">
+                <div class="badge">Minor League Cricket (MiLC)</div>
+                <div class="badge">National Cricket League (NCL)</div>
+                <div class="badge">North Texas Cricket Association</div>
+                <div class="badge">Houston Open</div>
+                <div class="badge">Atlanta Open</div>
+                <div class="badge">United States Premier League</div>
+                <div class="badge">Austin Premier Cricket League</div>
+                <div class="badge">Dallas Premier League</div>
+                <div class="badge">Lonestar Premier Cricket League</div>
+                <div class="badge">Midwest Cricket Conference</div>
+            </div>
+        </section>
+
+        <!-- Major Achievements with small gallery -->
+        <section class="section" aria-labelledby="achievements-heading">
+            <h2 id="achievements-heading">Major Achievements & Recognition</h2>
+
+            <div class="achievements-grid" aria-label="achievements list">
+                <div class="achievement-card">
+                    <div class="achievement-year">2025</div>
+                    <div class="achievement-title">Major League Cricket (MLC) Draft Selection</div>
+                    <div class="achievement-desc">Selected in the Major League Cricket Draft — one of the most exclusive selections in American cricket, representing national recognition of all-round capabilities.</div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-year">2025</div>
+                    <div class="achievement-title">Highest Wicket-Taker - Houston Open</div>
+                    <div class="achievement-desc">Leading wicket-taker (9 wickets) in a competitive open-format event, instrumental in taking the team to playoffs.</div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-year">2025</div>
+                    <div class="achievement-title">Centurion - Houston Premier League</div>
+                    <div class="achievement-desc">Scored 101 off 58 balls (9 fours, 5 sixes) on debut in Houston Premier League.</div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-year">2024</div>
+                    <div class="achievement-title">Top All-Rounder of the Year - MiLC</div>
+                    <div class="achievement-desc">Recognized among the top all-rounders in Minor League Cricket for consistent performance with both bat and ball.</div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-year">2024</div>
+                    <div class="achievement-title">Man of the Match - Minor League Cricket</div>
+                    <div class="achievement-desc">Match-winning all-round performance vs Chicago Tigers, including key wickets and a vital batting contribution.</div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-year">2024</div>
+                    <div class="achievement-title">Hat-Trick Hero - NTCA Premier Division</div>
+                    <div class="achievement-desc">Achieved a rare hat-trick in a high-pressure NTCA Premier Division match.</div>
+                </div>
+
+                <!-- add more cards as needed -->
+            </div>
+
+            <!-- small gallery -->
+            <div class="playing-gallery" aria-label="playing gallery">
+                <img src="./ujjwal_bowling_pose.jpg" alt="Playing shot 1 - batting" style="height: 300px;">
+                <img src="./ujjwal_batting_pose.jpg" alt="Playing shot 2 - bowling" style="height: 300px;">
+                <img src="./bowling_achievemns.jpg" alt="Playing shot 3 - celebrations" style="height: 300px;">
+            </div>
+        </section>
+
+        <!-- Career statistics -->
+        <section class="section" aria-labelledby="career-stats-heading">
+            <h2 id="career-stats-heading">Career Statistics - United States (2022–Present)</h2>
+
+            <div class="content-box">
+                <h3>Minor League Cricket (MiLC)</h3>
+                <p><strong>Teams:</strong> St. Louis Americans (Retained Marquee Player, 2023-24) | Fort Lauderdale Lions (2022)</p>
+                <p><strong>Cumulative Performance:</strong> 378+ runs &amp; 26 wickets</p>
+                <p style="margin-top:10px;"><strong>Career Highlights:</strong></p>
+                <ul>
+                    <li>Player of the Match vs Chicago Tigers (2 wickets for 3 runs)</li>
+                    <li>Explosive 56 off 29 balls vs Chicago Kingsmen</li>
+                    <li>4-wicket haul vs Chicago Kingsmen</li>
+                    <li>All-round performance: 38 off 19 balls + 2 wickets vs Chicago Tigers</li>
+                    <li>Top Bowler - Central Division, Week 4 (2024)</li>
+                    <li>Match-winning 39 off 21 balls vs Michigan Stars (2023)</li>
+                    <li>Unbeaten 50 vs Atlanta Fire (2022)</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>North Texas Cricket Association (NTCA)</h3>
+                <p><strong>Teams:</strong> Elite Lions | Pumas | Premier XI</p>
+                <p><strong>ODI Format:</strong> 36 matches | 1,204 runs (Highest Score: 154*) | 55 wickets (Best: 5/29) | Batting Average: 33.4</p>
+                <p><strong>T20 Format:</strong> 18 matches | 577 runs (Average: 38.5) | 18 wickets (Best: 2/13) | Strike Rate: 150+</p>
+            </div>
+
+            <div class="content-box">
+                <h3>Austin Premier Cricket League (APCL)</h3>
+                <p>17 matches | 516 runs (Average: 34.4, Strike Rate: 169) | 22 wickets (Best: 4/12)</p>
+            </div>
+
+            <div class="stats-highlight" role="note" aria-live="polite">
+                <h3>Cumulative U.S. Cricket Record</h3>
+                <div class="stats-row">
+                    <div class="stats-item">
+                        <div class="stats-item-number">3,534+</div>
+                        <div class="stats-item-label">Total Runs</div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-item-number">155+</div>
+                        <div class="stats-item-label">Total Wickets</div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-item-number">140+</div>
+                        <div class="stats-item-label">Matches Played</div>
+                    </div>
+                </div>
+                <p style="margin-top: 14px; font-size: 1rem; font-style: italic;">
+                    Recognized as one of the most dependable and impactful all-rounders in U.S. cricket
+                </p>
+            </div>
+
+             <div class="playing-gallery" aria-label="playing gallery">
+                <img src="./ncl.jpg" alt="stat_1" style="height: 400px;">
+                <img src="./ncl_2.jpg" alt="Playing shot 2 - bowling" style="height: 410px;">
+                <img src="./ncl_3.jpg" alt="Playing shot 3 - celebrations" style="height: 390px;">
+            </div>
+        </section>
+
+        <!-- NCL 2025 -->
+        <section class="section" aria-labelledby="ncl-heading">
+            <h2 id="ncl-heading">National Cricket League (NCL) 2025</h2>
+            <div class="content-box">
+                <h3>Chicago Cricket Club Selection</h3>
+                <p>Selected by the Chicago Cricket Club for the National Cricket League 2025 season — a premier franchise tournament featuring global cricket icons as ambassadors and owners.</p>
+                <p style="margin-top:10px;"><strong>Leadership:</strong></p>
+                <ul>
+                    <li><strong>Captain:</strong> Sam Billings</li>
+                    <li><strong>Coach:</strong> JP Duminy</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Playing with internationals -->
+        <section class="section" aria-labelledby="with-internationals">
+            <h2 id="with-internationals">Playing Alongside Future Indian Internationals</h2>
+            <div class="content-box">
+                <h3>Elite competition during India career</h3>
+                <p>Shared the field with several players who became international stars, including:</p>
+                <ul>
+                    <li><strong>Hanuma Vihari</strong> — Test batsman</li>
+                    <li><strong>KS Bharat</strong> — Wicketkeeper-batsman (Test)</li>
+                    <li><strong>Nitish Kumar Reddy</strong> — Emerging all-rounder</li>
+                    <li><strong>Devdutt Padikkal</strong> — IPL & international player</li>
+                    <li><strong>Yashasvi Jaiswal</strong>, <strong>Rinku Singh</strong>, <strong>Abhishek Sharma</strong> — T20/ IPL stars</li>
+                </ul>
+                <p style="margin-top:12px; font-style: italic;">Competing alongside players of this caliber validated his own abilities against future international-class opposition.</p>
+            </div>
+        </section>
+
+        <!-- Professional profile summary -->
+        <section class="section" aria-labelledby="profile-summary">
+            <h2 id="profile-summary">Professional Profile Summary</h2>
+            <div class="content-box">
+                <h3>Career Overview</h3>
+                <p>Ujjwal Vinnakota is a seasoned professional all-rounder with over 15 years of competitive cricket experience spanning India's elite BCCI pathway and the rapidly growing United States cricket ecosystem.</p>
+                <p style="margin-top:10px;"><strong>India Experience:</strong> Progressed from district and zonal selections to representing Andhra Pradesh at U-16, U-19 and U-23 levels. Six consecutive years at the Andhra Cricket Academy reflects consistent performance under formal evaluation.</p>
+                <p style="margin-top:10px;"><strong>United States Career:</strong> Since moving to the U.S. in 2022, established as a top all-round performer with marquee selection in MiLC and selection in prominent U.S. franchise events.</p>
+                <p style="margin-top:10px;"><strong>All-Round Capabilities:</strong> Cumulative U.S. stats of 3,534+ runs and 155+ wickets across 140+ matches; multiple centuries and five-wicket hauls.</p>
+            </div>
+        </section>
+
+        <div class="quote-section">
+            A 15-year journey from grassroots cricket in Eluru to professional franchises in the United States, culminating in Major League Cricket Draft selection—built on discipline, dedication, and consistent performance at every level.
+            <div class="quote-author">— Professional Cricket Excellence Since 2010</div>
+        </div>
+         <div class="playing-gallery" aria-label="playing gallery">
+                <img src="./old_pic.jpg" alt="stat_1" style="height: 420px;">
+                <img src="./awards.jpg" alt="Playing shot 2 - bowling" style="height: 480px;">
+                <img src="./celebratiyy.jpg" alt="Playing shot 3 - celebrations" style="height: 450px;">
+            </div>
+
+         <h3>Early Media Recognition (2010–2013)</h3>
+  <p>Click <b>Translate</b> to show the translation stored in each .docx file.</p>
+
+  <div class="playing-gallery">
+
+    <!-- ✅ Example cards (you can replace images with real ones) -->
+    <div class="card">
+      <img src="./newspaper_1.jpg" data-doc="./assigned_docx/Newspaper 1.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_2.jpg" data-doc="./assigned_docx/Newspaper 2.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_3.jpg" data-doc="./assigned_docx/Newspaper 3.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_4.jpg" data-doc="./assigned_docx/Newspaper 4.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_5.jpg" data-doc="./assigned_docx/Newspaper 5.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_6.jpg" data-doc="./assigned_docx/Newspaper 6.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_7.jpg" data-doc="./assigned_docx/Newspaper 7.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_8.jpg" data-doc="./assigned_docx/Newspaper 8.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_9.jpg" data-doc="./assigned_docx/Newspaper 9.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_10.jpg" data-doc="./assigned_docx/Newspaper 10.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_11.jpg" data-doc="./assigned_docx/Newspaper 11.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_12.jpg" data-doc="./assigned_docx/Newspaper 12.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_13.jpg" data-doc="./assigned_docx/Newspaper 13.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_14.jpg" data-doc="./assigned_docx/Newspaper 14.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_15.jpg" data-doc="./assigned_docx/Newspaper 15.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_16.jpg" data-doc="./assigned_docx/Newspaper 16.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_17.jpg" data-doc="./assigned_docx/Newspaper 17.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <div class="card">
+      <img src="./newspaper_18.jpg" data-doc="./assigned_docx/Newspaper 18.docx" alt="Newspaper coverage 1">
+      <button class="translateBtn">Translate</button>
+      <div class="result"></div>
+    </div>
+
+    <!-- 🔁 repeat for Newspaper 4.docx ... Newspaper 18.docx -->
+  </div>
+
+ <script>
+(function(){
+  const cards = document.querySelectorAll('.playing-gallery .card');
+  cards.forEach((card, idx) => {
+    const img = card.querySelector('img');
+    if (!img) return;
+    if (img.getAttribute('data-doc')) return; // don’t overwrite existing ones
+
+    const n = idx + 1;
+    const docPath = `./assigned_docx/Newspaper ${n}.docx`;
+    img.setAttribute('data-doc', docPath);
+
+    const helper = document.createElement('div');
+    helper.style.fontSize = '12px';
+    helper.style.color = '#666';
+    helper.style.marginTop = '6px';
+    helper.textContent = `data-doc → ${docPath}`;
+    const result = card.querySelector('.result');
+    n = n + 1
+    if (result && !result.hasChildNodes()) result.appendChild(helper);
+  });
+})();
+</script>
+
+<!-- 2️⃣ Your translate script (the Mammoth convert one) -->
+<script>
+(function(){
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c])); }
+  function downloadFile(url, filename){
+    const a=document.createElement('a');a.href=url;a.download=filename;
+    document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),3000);
+  }
+  document.querySelectorAll('.playing-gallery .card').forEach(card=>{
+    const img=card.querySelector('img');
+    const btn=card.querySelector('.translateBtn');
+    const resultDiv=card.querySelector('.result');
+    btn.addEventListener('click',async()=>{
+      btn.disabled=true;btn.textContent='Loading...';
+      resultDiv.innerHTML='<small>Fetching translation file — please wait.</small>';
+      const docPath=img.getAttribute('data-doc');
+      if(!docPath){resultDiv.innerHTML='<p style="color:crimson"><b>Error:</b> data-doc missing.</p>';btn.disabled=false;btn.textContent='Translate';return;}
+      try{
+        const res=await fetch(docPath);
+        if(!res.ok)throw new Error('HTTP '+res.status+' fetching '+docPath);
+        const arrayBuffer=await res.arrayBuffer();
+        if(typeof mammoth==='undefined'){resultDiv.innerHTML='<p style="color:red"><b>Error:</b> mammoth.js not loaded.</p>';return;}
+        const msg=await mammoth.convertToHtml({arrayBuffer});
+        const htmlContent=msg.value||'<p>(No content)</p>';
+        resultDiv.innerHTML='<div class=\"docx-content\">'+htmlContent+'</div>';
+        const dl=document.createElement('button');
+        dl.textContent='Download .docx';dl.style.marginTop='8px';
+        dl.addEventListener('click',()=>downloadFile(docPath,(img.alt||'clipping')+'.docx'));
+        resultDiv.appendChild(dl);
+      }catch(err){
+        console.error(err);
+        resultDiv.innerHTML='<p style=\"color:red\"><b>Error:</b> '+escapeHtml(String(err))+'</p>';
+      }finally{btn.disabled=false;btn.textContent='Translate';}
+    });
+  });
+})();
+</script>
+
+        <footer>
+            <p style="font-size:1.1rem; margin-bottom:10px;"><strong>UJJWAL VINNAKOTA</strong></p>
+            <p>Professional All-Rounder Cricketer</p>
+            <p style="margin-top:8px;">15+ Years of Professional Cricket | India &amp; United States</p>
+            <p style="margin-top:10px;"><strong>Career Representation:</strong></p>
+            <p>Andhra Pradesh (BCCI) | St. Louis Americans (MiLC) | Chicago Cricket Club (NCL)</p>
+            <p style="margin-top:10px;"><strong>Major Selections:</strong></p>
+            <p>Major League Cricket Draft 2025 | National Cricket League 2025 | Minor League Cricket Marquee Player</p>
+            <p style="margin-top:14px; font-size:0.85rem; opacity:0.85;">© 2025 Ujjwal Vinnakota | Professional Cricket Portfolio</p>
+        </footer>
+    </div>
+</body>
+</html>
